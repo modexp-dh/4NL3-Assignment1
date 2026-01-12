@@ -14,6 +14,12 @@ def normalize_text(
 
     return text
 
+def tokenize(text):
+    #remove punctuation
+    text = re.sub(r"[^\w\s']", " ", text)
+    tokens = text.split()
+    return tokens
+
 def main():
     print("hello")
 
