@@ -1,9 +1,14 @@
 import sys
 import re
+import argparse
 
 def normalize_text(
         text,
         lowercase=False,
+        stem=False,
+        lemma=False,
+        stopwords=False,
+        accent=False
  ):
     """
     Normalize human readable text to raw text
@@ -21,6 +26,11 @@ def tokenize(text):
     return tokens
 
 def main():
-    print("hello")
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("input_file")
+
+    args = parser.parse_args()
+    print(args.input_file)
 
 main()
