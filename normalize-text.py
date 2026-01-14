@@ -43,10 +43,8 @@ def main():
 
     args = parser.parse_args()
 
-    print(args._get_args)
-
     #Read file
-    with open(args.input_file) as f:
+    with open(args.input_file, encoding="utf-8") as f:
         text = f.read()
 
     # Normalize
