@@ -1,6 +1,7 @@
 import sys
 import re
 import argparse
+import unicodedata
 from collections import Counter
 
 def normalize_text(
@@ -11,12 +12,12 @@ def normalize_text(
         stopwords=False,
         accent=False
  ):
-    """
-    Normalize human readable text to raw text
-    """
 
     if lowercase:
         text = text.lower()
+
+    if accent:
+        text = remove_accents(text)
 
     return text
 
@@ -25,6 +26,15 @@ def tokenize(text):
     text = re.sub(r"[^\w\s']", " ", text)
     tokens = text.split()
     return tokens
+
+def remove_accents(text):
+    """
+    Remove accents using Unicode normalization.
+    """
+    return ''.join(
+        c for c in unicodedata.normalize('NFD', text)
+        if unicodedata.category(c) != 'Mn'
+    )
 
 def main():
     parser = argparse.ArgumentParser()
@@ -65,7 +75,7 @@ def main():
 
     sorted_tokens = sorted(
         token_counts.items(),
-        key=lambda x: (-x[1], x[0])
+        key=lambda x: (x[1], x[0])
     )
 
     # Output
