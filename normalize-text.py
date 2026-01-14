@@ -67,7 +67,7 @@ def main():
 
     sorted_tokens = sorted(
         token_counts.items(),
-        key=lambda x: (x[1], x[0])
+        key=lambda x: (-x[1], x[0])
     )
 
     # Output
