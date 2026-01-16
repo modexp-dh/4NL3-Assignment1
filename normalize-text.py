@@ -104,6 +104,8 @@ def main():
 
     parser.add_argument("input_file")
 
+    parser.add_argument("-o", "--output", default="token_counts.txt")
+
     parser.add_argument("-lowercase", action="store_true")
 
     parser.add_argument("-stem", action="store_true")
@@ -135,14 +137,15 @@ def main():
 
     sorted_tokens = sorted(
         token_counts.items(),
-        key=lambda x: (x[1], x[0])
+        key=lambda x: (-x[1], x[0])
     )
 
-    # Output
-    for token, count in sorted_tokens:
-        print(f"{token} {count}")
+    with open(args.output, "w", encoding="utf-8") as out:
+        for token, count in sorted_tokens:
+            out.write(f"{token}\t{count}\n")
 
-    print(f"\nTotal tokens: {len(tokens)}", file=sys.stderr)
+    print(f"Total tokens: {len(tokens)}", file=sys.stderr)
+    print(f"Saved token counts to {args.output}", file=sys.stderr)
 
 
 main()
